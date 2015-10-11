@@ -15,6 +15,7 @@ import com.dbsys.rs.lib.UnauthenticatedAccessException;
 import com.dbsys.rs.lib.entity.Operator;
 import com.dbsys.rs.lib.entity.Operator.Role;
 import com.dbsys.rs.lib.entity.Token;
+import com.dbsys.rs.security.repository.TokenRepository;
 
 /**
  * Custom Authentication Provider.
@@ -26,18 +27,29 @@ import com.dbsys.rs.lib.entity.Token;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private TokenService tokenService;
+	private TokenRepository tokenRepository;
 
 	@Override
-	public CustomUser loadUserByUsername(String username) throws UsernameNotFoundException {
+	public CustomUser loadUserByUsername(String key) throws UsernameNotFoundException {
 		try {
-			Token token = tokenService.get(username);
+			Token token = getToken(key);
 			Operator operator = token.getOperator();
 			
-			return new CustomUser(operator, username, getAuthorities(operator.getRole()));
+			return new CustomUser(operator, key, getAuthorities(operator.getRole()));
 		} catch (OutOfDateEntityException | UnauthenticatedAccessException e) {
 			throw new UsernameNotFoundException("Username atau password salah");
 		}
+	}
+	
+	private Token getToken(String key) throws OutOfDateEntityException, UnauthenticatedAccessException {
+		Token token = tokenRepository.findOne(key);
+		if (token.isExpire())
+			throw new OutOfDateEntityException();
+		if (token.isLock())
+			throw new UnauthenticatedAccessException();
+		token.extend(1);
+		
+		return tokenRepository.save(token);
 	}
 
 	/**
