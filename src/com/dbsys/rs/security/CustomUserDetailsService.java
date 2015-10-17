@@ -47,8 +47,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 			throw new OutOfDateEntityException();
 		if (token.isLock())
 			throw new UnauthenticatedAccessException();
+		if (!token.isExtensible())
+			return token;
 		token.extend(1);
-		
 		return tokenKeyRepository.save(token);
 	}
 
