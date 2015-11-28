@@ -42,7 +42,7 @@
   	<servlet.version>3.1.0</servlet.version>
   	<aspectj.version>1.8.2</aspectj.version>
 	<junit.version>4.11</junit.version>
-	<rumkit-library.version>0.5.2-SNAPSHOT</rumkit-library.version>
+	<rumkit-library.version>0.5.3-SNAPSHOT</rumkit-library.version>
   </properties>
   
   <dependencies>
