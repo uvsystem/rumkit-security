@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.dbsys.rs.lib.entity.Operator;
+import com.dbsys.rs.security.entity.Operator;
 
 /**
  * Principal untuk spring security.

@@ -10,11 +10,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.dbsys.rs.lib.OutOfDateEntityException;
-import com.dbsys.rs.lib.UnauthenticatedAccessException;
-import com.dbsys.rs.lib.entity.Operator;
-import com.dbsys.rs.lib.entity.Operator.Role;
-import com.dbsys.rs.lib.entity.Token;
+import com.dbsys.rs.OutOfDateEntityException;
+import com.dbsys.rs.UnauthenticatedAccessException;
+import com.dbsys.rs.security.entity.Operator;
+import com.dbsys.rs.security.entity.Token;
+import com.dbsys.rs.security.entity.Operator.Role;
 import com.dbsys.rs.security.repository.TokenKeyRepository;
 
 /**
